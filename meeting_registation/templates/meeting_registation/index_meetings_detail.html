@@ -1,0 +1,42 @@
+{% extends 'meeting_registation/index.html' %}
+
+{% load i18n %}
+
+{% block content %}
+
+<a href="{% url 'meeting_registation.index' %}">&laquo; {% trans "Back to the list" %}</a>
+
+<div>
+    
+    <h2>Meeting "{{ meetings_item }}"</h2>
+    
+    <table>
+        <tbody>
+            
+            <tr>
+                <td>name</td>
+                <td>{{ meetings_item.name }}</td>
+            </tr>
+            
+            <tr>
+                <td>description</td>
+                <td>{{ meetings_item.description }}</td>
+            </tr>
+            
+            <tr>
+                <td>time</td>
+                <td>{{ meetings_item.time }}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+{% if meetings_can_edit %}
+<p>
+    <a href="{% url 'meeting_registation.index_meetings_edit' meetings_pk=meetings_item.pk %}">[{% trans "Edit" %}]</a>
+    |
+    <a href="{% url 'meeting_registation.index_meetings_delete' meetings_pk=meetings_item.pk %}">[{% trans "Delete" %}]</a>
+</p>
+{% endif %}
+{% endblock %}
+

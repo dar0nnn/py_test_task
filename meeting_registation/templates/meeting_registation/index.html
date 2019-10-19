@@ -1,0 +1,153 @@
+{% extends 'meeting_registation/base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+<div>
+    <h1>My meetings</h1>
+</div><div>
+    <p><a href="{% url 'logout' %}">Log out</a></p>
+
+    <h2>Profile items</h2>
+    
+    {% if profile_item_list %}
+        {% for profile_item in profile_item_list %}
+        <hr>
+        <h3>
+            <a href="{% url 'meeting_registation.index_profile_detail' profile_pk=profile_item.pk %}">
+            {{ profile_item }}
+            </a>
+        </h3>
+
+        <table>
+            <tbody>
+                
+                <tr>
+                    <td>user</td>
+                    <td>{{ profile_item.user }}</td>
+                </tr>
+                
+                <tr>
+                    <td>first_name</td>
+                    <td>{{ profile_item.first_name }}</td>
+                </tr>
+                
+                <tr>
+                    <td>last_name</td>
+                    <td>{{ profile_item.last_name }}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+        {% if profile_can_edit %}
+
+        <a href="{% url 'meeting_registation.index_profile_edit' profile_pk=profile_item.pk %}">[{% trans "Edit" %}]</a> |
+        <a href="{% url 'meeting_registation.index_profile_delete' profile_pk=profile_item.pk %}">[X]</a>
+        {% endif %}
+        {% endfor %}
+        <hr>
+    {% else %}
+    {% blocktrans with name="Profile items" %}No {{ name }}{% endblocktrans %}
+    {% endif %}
+    {% if profile_can_edit %}
+    <p>
+        <a href="{% url 'meeting_registation.index_profile_create' %}">{% blocktrans with name="Profile" %}Add new {{ name }}{% endblocktrans %}</a>
+    </p>
+    {% endif %}
+    
+</div><div>
+    
+    <h2>Meeting items</h2>
+    
+    {% if meetings_item_list %}
+        {% for meetings_item in meetings_item_list %}
+        <hr>
+        <h3>
+            <a href="{% url 'meeting_registation.index_meetings_detail' meetings_pk=meetings_item.pk %}">
+            {{ meetings_item }}
+            </a>
+        </h3>
+
+        <table>
+            <tbody>
+                
+                <tr>
+                    <td>name</td>
+                    <td>{{ meetings_item.name }}</td>
+                </tr>
+                
+                <tr>
+                    <td>description</td>
+                    <td>{{ meetings_item.description }}</td>
+                </tr>
+                
+                <tr>
+                    <td>time</td>
+                    <td>{{ meetings_item.time }}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+        {% if meetings_can_edit %}
+
+        <a href="{% url 'meeting_registation.index_meetings_edit' meetings_pk=meetings_item.pk %}">[{% trans "Edit" %}]</a> |
+        <a href="{% url 'meeting_registation.index_meetings_delete' meetings_pk=meetings_item.pk %}">[X]</a>
+        {% endif %}
+        {% endfor %}
+        <hr>
+    {% else %}
+    {% blocktrans with name="Meeting items" %}No {{ name }}{% endblocktrans %}
+    {% endif %}
+    {% if meetings_can_edit %}
+    <p>
+        <a href="{% url 'meeting_registation.index_meetings_create' %}">{% blocktrans with name="Meeting" %}Add new {{ name }}{% endblocktrans %}</a>
+    </p>
+    {% endif %}
+    
+</div><div>
+    
+    <h2>Registation items</h2>
+    
+    {% if registation_item_list %}
+        {% for registation_item in registation_item_list %}
+        <hr>
+        <h3>
+            <a href="{% url 'meeting_registation.index_registation_detail' registation_pk=registation_item.pk %}">
+            {{ registation_item }}
+            </a>
+        </h3>
+
+        <table>
+            <tbody>
+                
+                <tr>
+                    <td>profile</td>
+                    <td>{{ registation_item.profile }}</td>
+                </tr>
+                
+                <tr>
+                    <td>meeting</td>
+                    <td>{{ registation_item.meeting }}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+        {% if registation_can_edit %}
+
+        <a href="{% url 'meeting_registation.index_registation_edit' registation_pk=registation_item.pk %}">[{% trans "Edit" %}]</a> |
+        <a href="{% url 'meeting_registation.index_registation_delete' registation_pk=registation_item.pk %}">[X]</a>
+        {% endif %}
+        {% endfor %}
+        <hr>
+    {% else %}
+    {% blocktrans with name="Registation items" %}No {{ name }}{% endblocktrans %}
+    {% endif %}
+    {% if registation_can_edit %}
+    <p>
+        <a href="{% url 'meeting_registation.index_registation_create' %}">{% blocktrans with name="Registation" %}Add new {{ name }}{% endblocktrans %}</a>
+    </p>
+    {% endif %}
+    
+</div>
+{% endblock %}
+

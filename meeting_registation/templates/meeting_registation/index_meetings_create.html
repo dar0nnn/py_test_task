@@ -1,0 +1,19 @@
+{% extends 'meeting_registation/index.html' %}
+
+{% load i18n %}
+
+{% block content %}
+
+<a href="{% url 'meeting_registation.index' %}">&laquo; {% trans "Back to the list" %}</a>
+
+
+<h2>{% blocktrans with name="Meeting" %}New {{ name }}{% endblocktrans %}</h2>
+
+{{ form_meetings.media }}
+<form action="" method="post"{% if form_meetings.is_multipart %} enctype="multipart/form-data"{% endif %}>{% csrf_token %}
+    {{ form_meetings.as_p }}
+    <input type="hidden" name="_form" value="form_meetings" />
+    <input type="submit" value="{% trans "Create" %}" />
+</form>
+{% endblock %}
+

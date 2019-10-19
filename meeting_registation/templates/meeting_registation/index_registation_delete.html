@@ -1,0 +1,22 @@
+{% extends 'meeting_registation/index.html' %}
+
+{% load i18n %}
+
+{% block content %}
+
+<a href="{% url 'meeting_registation.index' %}">&laquo; {% trans "Back to the list" %}</a>
+
+<div>
+    
+    <h2>{% trans "Remove" %} Registation "{{ registation_item }}"</h2>
+    
+    {{ form_registation.media }}
+    <form action="" method="post"{% if form_registation.is_multipart %} enctype="multipart/form-data"{% endif %}>{% csrf_token %}
+        {{ form_registation.as_p }}
+        <p>Are you sure you want to delete "{{ registation_item }}"?</p>
+        <input type="hidden" name="_form" value="form_registation" />
+        <input type="submit" value="{% trans "Delete" %}" />
+    </form>
+</div>
+{% endblock %}
+

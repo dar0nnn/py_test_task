@@ -1,0 +1,37 @@
+{% extends 'meeting_registation/index.html' %}
+
+{% load i18n %}
+
+{% block content %}
+
+<a href="{% url 'meeting_registation.index' %}">&laquo; {% trans "Back to the list" %}</a>
+
+<div>
+    
+    <h2>Registation "{{ registation_item }}"</h2>
+    
+    <table>
+        <tbody>
+            
+            <tr>
+                <td>profile</td>
+                <td>{{ registation_item.profile }}</td>
+            </tr>
+            
+            <tr>
+                <td>meeting</td>
+                <td>{{ registation_item.meeting }}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+{% if registation_can_edit %}
+<p>
+    <a href="{% url 'meeting_registation.index_registation_edit' registation_pk=registation_item.pk %}">[{% trans "Edit" %}]</a>
+    |
+    <a href="{% url 'meeting_registation.index_registation_delete' registation_pk=registation_item.pk %}">[{% trans "Delete" %}]</a>
+</p>
+{% endif %}
+{% endblock %}
+

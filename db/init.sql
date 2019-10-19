@@ -1,0 +1,2 @@
+CREATE DATABASE meetings;
+GRANT ALL PRIVILEGES ON DATABASE "meetings" to postgres;
