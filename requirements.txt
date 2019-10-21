@@ -4,3 +4,4 @@ django>2
 djangorestframework
 wheel
 psycopg2
+factory_boy
