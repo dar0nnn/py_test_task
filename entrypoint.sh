@@ -16,4 +16,4 @@ python manage.py shell -c "from django.contrib.auth.models import User; User.obj
 # static for pretty admin
 python manage.py collectstatic --no-input
 echo 'SERVER RUNNING'
-python manage.py runserver 0.0.0.0:8000
+uwsgi --http-socket :8000 --py-autoreload 1 --module app.wsgi:application

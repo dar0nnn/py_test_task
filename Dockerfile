@@ -1,22 +1,30 @@
-FROM python:3.6-alpine
+FROM python:3.6-alpine as app
 
 RUN apk add mc
 
 RUN /bin/sh -c "apk add --no-cache bash"
 
-RUN mkdir -p /meetings/src/app
+RUN mkdir -p /meetings/src
 
-WORKDIR /meetings/src/app
+WORKDIR /meetings/src
 
-COPY . /meetings/src/app
-RUN \
- apk add --no-cache python3 postgresql-libs && \
- apk add --no-cache --virtual .build-deps gcc python3-dev musl-dev postgresql-dev && \
- python3 -m pip install -r requirements.txt --no-cache-dir && \
- apk --purge del .build-deps
+COPY . /meetings/src
 
-RUN chmod +x /meetings/src/app/entrypoint.sh
+RUN set -e; \
+    apk add --no-cache python3 postgresql-libs && \
+	apk add --no-cache --virtual .build-deps \
+		gcc \
+		libc-dev \
+		linux-headers \
+		python3-dev \
+		musl-dev \
+		postgresql-dev\
+	; \
+	python3 -m pip install -r requirements.txt --no-cache-dir; \
+	apk del .build-deps;
 
-CMD ["/meetings/src/app/entrypoint.sh"]
+RUN chmod +x /meetings/src/entrypoint.sh
+
+CMD ["/meetings/src/entrypoint.sh"]
 
 EXPOSE 8000
